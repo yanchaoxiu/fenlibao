@@ -12,7 +12,7 @@ import math
 from selenium import webdriver
 
 url = 'http://192.168.40.236/pms/login'
-profile_directory = r'C:\Users\Administrator\AppData\Roaming\Mozilla\Firefox\Profiles\tgbukpkc.default'
+profile_directory = r'C:\Users\Administrator\AppData\Roaming\Mozilla\Firefox\Profiles\e6bsauke.default'
 profile = webdriver.FirefoxProfile(profile_directory)
 driver = webdriver.Firefox(profile)
 driver.maximize_window()  # 将浏览器最大化，以获取更清晰的校验码图片
@@ -66,16 +66,22 @@ login()
 xunhuan()
 
 sleep(3)
-driver.find_element_by_xpath(".//*[@id='topmenu_container']/li[12]/a").click()
+# driver.find_element_by_xpath(".//*[@id='topmenu_container']/li[11]/a").click()
 # driver.find_element_by_xpath(".//*[@id='topmenu_container']/li[12]/a").click()
+driver.find_element_by_link_text(u"业务管理").click()
 sleep(2)
-driver.find_element_by_xpath("html/body/div[3]/div[2]/ul/li[3]/a").click()
-
-for i in range(1, 8):
-    SendKeys.SendKeys("{RIGHT}")
-
-driver.find_element_by_xpath("html/body/div[4]/div/div/div[1]/table/tbody/tr[1]/td[14]/a").click()
-sleep(1)
-driver.find_element_by_xpath("html/body/div[6]/div/div/div[3]/button[2]").click()
-# sleep(5)
-# driver.find_element_by_xpath("html/body/div[6]/div/div/div[2]/button").click()
+driver.find_element_by_xpath("html/body/div[3]/div[2]/ul/li[4]/a").click()
+sleep(5)
+def liu():
+    driver.find_element_by_xpath(".//*[@id='loan_query']/button").click()
+    sleep(2)
+    driver.find_element_by_xpath(".//*[@id='loan-table']/tbody/tr[1]/td[14]/a[2]").click()
+    sleep(1)
+    driver.find_element_by_xpath("html/body/div[5]/div/div/div[3]/button[2]").click()
+    sleep(2)
+    driver.find_element_by_xpath("html/body/div[5]/div/div/div[2]/button").click()
+    sleep(2)
+    # driver.find_element_by_xpath(".//*[@id='loan_query']/button").click()
+    # sleep(2)
+for i in range(0,5):
+    liu()
