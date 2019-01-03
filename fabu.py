@@ -1,25 +1,23 @@
 # coding=utf-8
 from pymouse import PyMouse
 import SendKeys
-import sys
-
-reload(sys)
-sys.setdefaultencoding('utf-8')
+from selenium.webdriver.support.select import Select
 from time import sleep
 from PIL import Image
 import pytesseract
 import math
-from selenium import webdriver
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
-url = 'http://192.168.40.236/pms/login'
-profile_directory = r'C:\Users\Administrator\AppData\Roaming\Mozilla\Firefox\Profiles\tgbukpkc.default'
-profile = webdriver.FirefoxProfile(profile_directory)
-driver = webdriver.Firefox(profile)
+from selenium import webdriver
+driver=webdriver.Chrome()
+url1 = 'http://192.168.40.236/pms/login'
+driver.get(url1)
 driver.maximize_window()  # 将浏览器最大化，以获取更清晰的校验码图片
-driver.get(url)
 ac1 = driver.current_url
 print ac1
-
+index="1"
 
 def hqyzm():
     driver.save_screenshot('gps.png')  # 截取当前网页，该网页有我们需要的验证码
@@ -45,7 +43,7 @@ def login():
     driver.find_element_by_xpath(".//*[@id='password']").send_keys("123456")
     driver.find_element_by_xpath(".//*[@id='captcha']").send_keys(hqyzm())
     driver.find_element_by_xpath(".//*[@id='btn-submit']").click()
-    sleep(3)
+    sleep(1)
 
 
 def xunhuan():
@@ -61,21 +59,26 @@ def xunhuan():
         login()
         xunhuan()
 
+
+def fb():
+    sleep(1)
+    driver.find_element_by_xpath(".//*[@id='topmenu_container']/li[11]/a").click()
+    sleep(1)
+    driver.find_element_by_xpath("html/body/div[3]/div[2]/ul/li[3]/a").click()
+    sleep(1)
+    for i in range(1, 8):
+        SendKeys.SendKeys("{RIGHT}")
+    driver.find_element_by_xpath("/html/body/div[4]/div/div/div[1]/table/tbody/tr[1]/td[14]/a").click()
+    sleep(1)
+    s12 = driver.find_element_by_xpath('//*[@id="lendType"]')
+    Select(s12).select_by_index(index)
+    sleep(1)
+    driver.find_element_by_xpath("html/body/div[6]/div/div/div[3]/button[2]").click()
+    # sleep(5)
+    # driver.find_element_by_xpath("html/body/div[6]/div/div/div[2]/button").click()
+
+
 hqyzm()
 login()
 xunhuan()
-
-sleep(3)
-driver.find_element_by_xpath(".//*[@id='topmenu_container']/li[12]/a").click()
-# driver.find_element_by_xpath(".//*[@id='topmenu_container']/li[12]/a").click()
-sleep(2)
-driver.find_element_by_xpath("html/body/div[3]/div[2]/ul/li[3]/a").click()
-
-for i in range(1, 8):
-    SendKeys.SendKeys("{RIGHT}")
-
-driver.find_element_by_xpath("html/body/div[4]/div/div/div[1]/table/tbody/tr[1]/td[14]/a").click()
-sleep(1)
-driver.find_element_by_xpath("html/body/div[6]/div/div/div[3]/button[2]").click()
-# sleep(5)
-# driver.find_element_by_xpath("html/body/div[6]/div/div/div[2]/button").click()
+fb()
